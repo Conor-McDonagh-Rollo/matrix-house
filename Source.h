@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 struct Matrix {
 
@@ -18,14 +19,14 @@ struct Matrix {
 
 	void transpose90()
 	{
-		int transpose[11][11];
+		int temp[11][11];
 		const int COL_COUNT = 11;
 
 		for (int i = 0; i < COL_COUNT; ++i)
 		{
 			for (int j = i; j < COL_COUNT; ++j)
 			{
-				transpose[i][j] = m[i][j];
+				//temp[i][j] = m[i][j];
 			}
 		}
 
@@ -33,17 +34,25 @@ struct Matrix {
 		{
 			for (int j = i; j < COL_COUNT; ++j)
 			{
-				transpose[i][j] = m[j][i];
-				transpose[j][i] = m[i][j];
+				int tempInt = m[i][j];
+				m[i][j] = m[j][i];
+				m[j][i] = tempInt;
+
+				/*temp[i][j] = m[j][i];
+				temp[j][i] = m[i][j];*/
 			}
 		}
 
 		for (int i = 0; i < COL_COUNT; ++i)
 		{
-			for (int j = 0; j < (COL_COUNT / 2); ++j)
+			for (int j = 0; j < COL_COUNT / 2; ++j)
 			{
-				transpose[i][j] = m[i][COL_COUNT - 1 - j];
-				transpose[i][COL_COUNT - 1 - j] = m[i][j];
+				int tempInt = m[i][j];
+				m[i][j] = m[i][COL_COUNT - 1 - j];
+				m[i][COL_COUNT - 1 - j] = tempInt;
+
+				/*temp[i][j] = m[i][COL_COUNT - 1 - j];
+				temp[i][COL_COUNT - 1 - j] = m[j][i];*/
 			}
 		}
 
@@ -51,7 +60,7 @@ struct Matrix {
 		{
 			for (int j = 0; j < COL_COUNT; ++j)
 			{
-				m[i][j] = transpose[i][j];
+				//m[i][j] = temp[i][j];
 			}
 		}
 	}
@@ -64,14 +73,14 @@ struct Matrix {
 			{
 				if (m[y][x] != 0)
 				{
-					std::cout << std::to_string(m[y][x]) << "   "; 
+					std::cout << std::to_string(m[y][x]) << "   ";
 				}
 				else
 				{
-					std::cout << "    "; 
+					std::cout << "    ";
 				}
 			}
-		std::cout << std::endl;
+			std::cout << std::endl;
 		}
 	}
 };
